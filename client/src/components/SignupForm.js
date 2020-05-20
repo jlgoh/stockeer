@@ -48,7 +48,7 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <form className="ui form" onSubmit={this.onFormSubmit}>
+      <form className="ui container form" onSubmit={this.onFormSubmit}>
         {this.renderError()}
         {this.renderFields()}
         <button type="submit" className="ui inverted primary button">

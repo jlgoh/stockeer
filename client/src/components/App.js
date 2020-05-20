@@ -3,6 +3,7 @@ import { Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import history from "../history";
 
+import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Home from "./Home";
 import LoginForm from "./LoginForm";
@@ -15,15 +16,18 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="ui container">
-        <Router history={history}>
-          <div>
-            <Header />
-            <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={LoginForm} />
-            <Route path="/signup" exact component={SignupForm} />
-          </div>
-        </Router>
+      <div>
+        <div>
+          <Router history={history}>
+            <div>
+              <Header />
+              <Sidebar />
+              <Route path="/" exact component={Home} />
+              <Route path="/login" exact component={LoginForm} />
+              <Route path="/signup" exact component={SignupForm} />
+            </div>
+          </Router>
+        </div>
       </div>
     );
   }

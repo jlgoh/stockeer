@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="ui container">
         <form className="ui form" onSubmit={this.onFormSubmit}>
           {this.renderError()}
           {this.renderFields()}
