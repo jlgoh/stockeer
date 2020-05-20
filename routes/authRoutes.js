@@ -3,11 +3,6 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users");
 
 module.exports = (app) => {
-  //Test
-  app.get("/", (req, res) => {
-    res.send("Hello from the backend");
-  });
-
   //Login
   app.get(
     "/auth/google",
