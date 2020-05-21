@@ -1,27 +1,39 @@
 import React from "react";
 import Chart from "./Chart";
-import { getData } from "./utils";
+import { fetchStock } from "../../actions";
+import { connect } from "react-redux";
 
 import { TypeChooser } from "react-stockcharts/lib/helper";
 
 class ChartWrapper extends React.Component {
-  async componentDidMount() {
-    const response = await getData("intra", "GOOG");
-    this.setState({ data: response });
+  componentDidMount() {
+    this.props.fetchStock("DAILY", this.props.search);
   }
   render() {
-    if (this.state == null) {
+    //If object store is empty (Loading)
+    if (Object.keys(this.props.stocks).length === 0) {
       return <div>Loading...</div>;
     }
     return (
       <div className="ui segment">
-        <h3 className="ui center aligned header">GOOG</h3>
+        <h3 className="ui center aligned header">{this.props.search}</h3>
         <TypeChooser>
-          {(type) => <Chart type={type} data={this.state.data} />}
+          {(type) => (
+            <Chart
+              type={type}
+              data={this.props.stocks[`${this.props.search}_DAILY`]}
+            />
+          )}
         </TypeChooser>
       </div>
     );
   }
 }
 
-export default ChartWrapper;
+const mapStateToProps = (state) => {
+  return {
+    stocks: state.stocks,
+  };
+};
+
+export default connect(mapStateToProps, { fetchStock })(ChartWrapper);

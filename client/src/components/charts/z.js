@@ -1,3 +1,4 @@
+//Processsed Data
 stocks = [
   {
     date: 2020 - 01 - 01,
@@ -15,8 +16,9 @@ stocks = [
   },
 ];
 
+//Store Design
 stocks = {
-  GOOG: [
+  GOOG_INTRA: [
     {
       date: 2020 - 01 - 01,
       open: "1389.5800",
@@ -33,7 +35,24 @@ stocks = {
     },
   ],
 
-  AMZN: [
+  GOOG_DAILY: [
+    {
+      date: 2020 - 01 - 01,
+      open: "1389.5800",
+      high: "1410.4200",
+      low: "1387.2500",
+      close: "1406.7200",
+    },
+    {
+      date: 2020 - 01 - 01,
+      open: "1389.5800",
+      high: "1410.4200",
+      low: "1387.2500",
+      close: "1406.7200",
+    },
+  ],
+
+  AMZN_DAILY: [
     {
       date: 2020 - 01 - 01,
       open: "1389.5800",

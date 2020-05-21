@@ -1,6 +1,5 @@
 import { timeParse } from "d3-time-format";
 import _ from "lodash";
-import alphavantage from "../../api/alphavantage";
 
 function parseData(d) {
   var data = {};
@@ -13,15 +12,8 @@ function parseData(d) {
   return data;
 }
 
-export async function getData(queryType, symbol) {
-  const param =
-    queryType === "daily" ? "TIME_SERIES_DAILY" : "TIME_SERIES_INTRADAY";
-
+export function processData(param, res) {
   if (param === "TIME_SERIES_DAILY") {
-    const res = await alphavantage.get(
-      `/query?outputsize=compact&apikey=JK56BI96ZRSP0VQN&symbol=${symbol}&function=${param}`
-    );
-
     const parseDate = timeParse("%Y-%m-%d");
 
     const mapped = _.map(res.data["Time Series (Daily)"], (val, date) => ({
@@ -31,10 +23,6 @@ export async function getData(queryType, symbol) {
 
     return mapped.map((d) => parseData(d)).reverse();
   } else {
-    const res = await alphavantage.get(
-      `/query?interval=5min&apikey=JK56BI96ZRSP0VQN&symbol=${symbol}&function=${param}`
-    );
-
     const parseDate = timeParse("%Y-%m-%d %H:%M:%S");
 
     const mapped = _.map(res.data["Time Series (5min)"], (val, date) => ({
