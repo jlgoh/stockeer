@@ -10,8 +10,8 @@ const Sidebar = (props) => {
             <Link to="/">App Name</Link>
           </div>
         </div>
-        <Link to="/" className="item">
-          Home
+        <Link to="/search" className="item">
+          Search
         </Link>
       </div>
       <div className="pusher"></div>

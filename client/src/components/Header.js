@@ -36,12 +36,12 @@ class Header extends React.Component {
         className="ui borderless inverted menu"
         style={{ borderRadius: "0" }}
       >
-        <a className="item toggler">
-          <i class="bars icon" style={{ color: "white" }}></i>
-        </a>
+        <button className="item toggler">
+          <i className="bars icon" style={{ color: "white" }}></i>
+        </button>
 
         <Link to="/" className="active item">
-          <i class="gripfire icon" style={{ color: "white" }}></i>
+          <i className="gripfire icon" style={{ color: "white" }}></i>
           Test
         </Link>
         <div className="inverted secondary right menu">

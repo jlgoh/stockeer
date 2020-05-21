@@ -9,6 +9,7 @@ import Home from "./Home";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import { fetchUser } from "../actions";
+import SearchPage from "./charts/SearchPage";
 
 class App extends React.Component {
   componentDidMount() {
@@ -25,6 +26,7 @@ class App extends React.Component {
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={LoginForm} />
               <Route path="/signup" exact component={SignupForm} />
+              <Route path="/search" exact component={SearchPage} />
             </div>
           </Router>
         </div>
