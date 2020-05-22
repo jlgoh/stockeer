@@ -2,6 +2,7 @@ import axios from "axios";
 import history from "../history";
 import alphavantage from "../api/alphavantage";
 import { processData } from "../components/charts/utils";
+const keys = require("../config/keys");
 
 //Fetch user
 export const fetchUser = () => async (dispatch) => {
@@ -18,7 +19,9 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
   //Fetch daily stock data of a company
   if (param === "TIME_SERIES_DAILY") {
     const res = await alphavantage.get(
-      `/query?outputsize=compact&apikey=JK56BI96ZRSP0VQN&symbol=${symbol.toUpperCase()}&function=${param}`
+      `/query?outputsize=compact&apikey=${
+        keys.alphaVantageKey
+      }&symbol=${symbol.toUpperCase()}&function=${param}`
     );
     dispatch({
       type: "FETCH_DAILY_STOCK",
@@ -29,7 +32,9 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
   //Fetch intraday stock data of a company
   else {
     const res = await alphavantage.get(
-      `/query?interval=5min&apikey=JK56BI96ZRSP0VQN&symbol=${symbol.toUpperCase()}&function=${param}`
+      `/query?interval=5min&apikey=${
+        keys.alphaVantageKey
+      }&symbol=${symbol.toUpperCase()}&function=${param}`
     );
     dispatch({
       type: "FETCH_INTRADAY_STOCK",

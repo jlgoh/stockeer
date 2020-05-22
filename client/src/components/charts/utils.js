@@ -12,6 +12,12 @@ function parseData(d) {
   return data;
 }
 
+export function removeOptionType() {
+  //An issue developer has yet to remove
+  document.getElementById("type").previousSibling.style.display = "none";
+  document.getElementById("type").style.display = "none";
+}
+
 export function processData(param, res) {
   if (param === "TIME_SERIES_DAILY") {
     const parseDate = timeParse("%Y-%m-%d");

@@ -18,6 +18,8 @@ import { HoverTooltip } from "react-stockcharts/lib/tooltip";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
 
+import { removeOptionType } from "./utils";
+
 const dateFormat = timeFormat("%Y-%m-%d");
 const numberFormat = format(".2f");
 
@@ -77,12 +79,15 @@ class CandleStickChartWithHoverTooltip extends React.Component {
     const end = xAccessor(data[Math.max(0, data.length - 150)]);
     const xExtents = [start, end];
 
+    removeOptionType();
+
     return (
       <ChartCanvas
         height={400}
         width={width}
         ratio={ratio}
         margin={margin}
+        clamp={true}
         type={type}
         seriesName="MSFT"
         data={data}
@@ -96,7 +101,7 @@ class CandleStickChartWithHoverTooltip extends React.Component {
           yExtents={[(d) => [d.high, d.low]]}
           padding={{ top: 10, bottom: 20 }}
         >
-          <XAxis axisAt="bottom" orient="bottom" />
+          <XAxis axisAt="bottom" orient="bottom" ticks={10} />
 
           <YAxis axisAt="left" orient="left" ticks={5} />
 
