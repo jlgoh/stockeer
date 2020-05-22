@@ -17,7 +17,7 @@ const TABS = {
 };
 
 class ChartWrapper extends React.Component {
-  //Show 4th Tab by default
+  //Show 5 Months Tab by default
   state = { ...TABS, "5M": true };
 
   componentDidMount() {
@@ -25,6 +25,15 @@ class ChartWrapper extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    //Fetch intraday stock
+    if (
+      !(`${this.props.term}_INTRADAY` in this.props.stocks) &&
+      this.state["1D"]
+    ) {
+      console.log(this.state);
+      this.props.fetchStock("INTRADAY", this.props.term);
+    }
+
     //Fetch stock only if search term has changed AND if stock is not in store
     if (
       prevProps.term !== this.props.term &&
@@ -53,7 +62,7 @@ class ChartWrapper extends React.Component {
     const fullData = this.props.stocks[`${this.props.term}_DAILY`];
     switch (time) {
       case "1D":
-        return _.takeRight(fullData, 5);
+        return this.props.stocks[`${this.props.term}_INTRADAY`];
       case "5D":
         return _.takeRight(fullData, 5);
       case "1M":
@@ -73,6 +82,13 @@ class ChartWrapper extends React.Component {
       return <Loading />;
     }
 
+    if (
+      !(`${this.props.term}_INTRADAY` in this.props.stocks) &&
+      this.state["1D"]
+    ) {
+      return <Loading />;
+    }
+
     const activeTab = Object.keys(this.state).filter(
       (key) => this.state[key]
     )[0];
@@ -84,7 +100,13 @@ class ChartWrapper extends React.Component {
           <div className="ui container">
             <ChartHeader term={this.props.term} />
             <TypeChooser>
-              {(type) => <Chart type={type} data={this.sliceData(activeTab)} />}
+              {(type) => (
+                <Chart
+                  type={type}
+                  xAxisType={activeTab}
+                  data={this.sliceData(activeTab)}
+                />
+              )}
             </TypeChooser>
           </div>
         </div>

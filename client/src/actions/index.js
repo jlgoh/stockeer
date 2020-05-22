@@ -38,7 +38,9 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
     );
     dispatch({
       type: "FETCH_INTRADAY_STOCK",
-      payload: { [`${symbol.toUpperCase()}_INTRA`]: processData(param, res) },
+      payload: {
+        [`${symbol.toUpperCase()}_INTRADAY`]: processData(param, res),
+      },
     });
   }
 };

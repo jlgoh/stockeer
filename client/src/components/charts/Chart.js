@@ -108,7 +108,11 @@ class CandleStickChartWithHoverTooltip extends React.Component {
           <MouseCoordinateX
             at="bottom"
             orient="bottom"
-            displayFormat={timeFormat("%Y-%m-%d")}
+            displayFormat={
+              this.props.xAxisType === "1D"
+                ? timeFormat("%Y-%m-%d %H:%M:%S")
+                : timeFormat("%Y-%m-%d")
+            }
           />
           <MouseCoordinateY
             at="left"
