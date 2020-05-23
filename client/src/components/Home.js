@@ -18,10 +18,12 @@ class Home extends React.Component {
         return;
       case false:
         return (
-          <Button primary size="huge">
-            Get Started
-            <Icon name="right arrow" />
-          </Button>
+          <Link to="/login">
+            <Button primary size="huge">
+              Get Started
+              <Icon name="right arrow" />
+            </Button>
+          </Link>
         );
       default:
         return (
@@ -30,17 +32,17 @@ class Home extends React.Component {
               <Grid.Column width={3} />
               <Grid.Column width={5}>
                 <Link to="/search">
-                  <Button primary size="huge">
+                  <Button primary size="huge" style={{ minWidth: "184px" }}>
                     &ensp;Search&ensp;
-                    <Icon name="right arrow" />
+                    <Icon name="search" />
                   </Button>
                 </Link>
               </Grid.Column>
               <Grid.Column width={5}>
-                <Link to="/search">
-                  <Button primary size="huge">
-                    Watchlist
-                    <Icon name="right arrow" />
+                <Link to="/watchlist">
+                  <Button primary size="huge" style={{ maxHeight: "51px" }}>
+                    Watchlist&ensp;
+                    <Icon name="bookmark" />
                   </Button>
                 </Link>
               </Grid.Column>

@@ -33,9 +33,9 @@ class LoginForm extends React.Component {
     }
   };
 
-  renderError() {
-    if (this.state.error) {
-      return <div className="ui red message">{this.state.error}</div>;
+  renderError(message) {
+    if (message) {
+      return <div className="ui red message">{message}</div>;
     }
   }
 
@@ -67,6 +67,9 @@ class LoginForm extends React.Component {
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 450 }}>
+          {this.props.location.state
+            ? this.renderError(this.props.location.state.referrer)
+            : null}
           <Header as="h2" textAlign="center">
             Login to your account
           </Header>
@@ -85,7 +88,7 @@ class LoginForm extends React.Component {
           <Divider horizontal>Or</Divider>
           <Form size="large" onSubmit={this.onFormSubmit}>
             <Segment stacked>
-              {this.renderError()}
+              {this.renderError(this.state.error)}
               {this.renderFields()}
               <Button primary fluid size="large" type="submit">
                 Login

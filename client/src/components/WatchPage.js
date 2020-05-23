@@ -5,3 +5,5 @@ class WatchPage extends React.Component {
     return <div>Watchpage</div>;
   }
 }
+
+export default WatchPage;

@@ -30,7 +30,6 @@ class ChartWrapper extends React.Component {
       !(`${this.props.term}_INTRADAY` in this.props.stocks) &&
       this.state["1D"]
     ) {
-      console.log(this.state);
       this.props.fetchStock("INTRADAY", this.props.term);
     }
 
