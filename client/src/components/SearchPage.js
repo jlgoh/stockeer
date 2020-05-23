@@ -1,7 +1,7 @@
 import React from "react";
-import ChartWrapper from "./ChartWrapper";
+import ChartWrapper from "./charts/ChartWrapper";
 import SearchBar from "./SearchBar";
-import history from "../../history";
+import history from "../history";
 import * as qs from "query-string";
 
 class SearchPage extends React.Component {

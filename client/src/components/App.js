@@ -8,8 +8,9 @@ import Header from "./Header";
 import Home from "./Home";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import WatchPage from "./WatchPage";
+import SearchPage from "./SearchPage";
 import { fetchUser } from "../actions";
-import SearchPage from "./charts/SearchPage";
 
 class App extends React.Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class App extends React.Component {
               <Route path="/login" exact component={LoginForm} />
               <Route path="/signup" exact component={SignupForm} />
               <Route path="/search" exact component={SearchPage} />
+              <Route path="/watchlist" exact component={WatchPage} />
             </div>
           </Router>
         </div>
