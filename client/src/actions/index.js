@@ -57,9 +57,10 @@ export const signUp = async (formValues) => {
 };
 
 //Login (not sent to store)
-export const logIn = async (formValues) => {
+export const logIn = (formValues) => async (dispatch) => {
   try {
     const response = await axios.post("/api/login", formValues);
+    dispatch({ type: "FETCH_USER", payload: response.data });
     history.push("/");
     return response;
   } catch (err) {

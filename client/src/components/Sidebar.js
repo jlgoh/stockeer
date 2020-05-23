@@ -7,7 +7,7 @@ const Sidebar = (props) => {
       <div className="ui sidebar inverted vertical menu">
         <div className="item">
           <div className="item">
-            <Link to="/">App Name</Link>
+            <Link to="/">Stocky</Link>
           </div>
         </div>
         <Link to="/search" className="item">

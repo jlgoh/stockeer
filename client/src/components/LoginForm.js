@@ -1,10 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { logIn } from "../actions";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Message,
+  Segment,
+  Divider,
+  Icon,
+} from "semantic-ui-react";
 
 const formFields = [
-  { label: "Username", name: "username", type: "text" },
-  { label: "Password", name: "password", type: "password" },
+  { label: "Username", name: "username", type: "text", icon: "user" },
+  { label: "Password", name: "password", type: "password", icon: "lock" },
 ];
 
 class LoginForm extends React.Component {
@@ -16,8 +27,7 @@ class LoginForm extends React.Component {
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    const res = await logIn(this.state);
-    console.log(res);
+    const res = await this.props.logIn(this.state);
     if (res.status === 401) {
       this.setState({ error: "Username or Password is incorrect" });
     }
@@ -30,18 +40,20 @@ class LoginForm extends React.Component {
   }
 
   renderFields() {
-    return formFields.map(({ label, name, type }) => {
+    return formFields.map(({ label, name, type, icon }) => {
       return (
         <div key={name} className="field">
-          <label>{label}</label>
-          <input
+          <Form.Input
+            fluid
+            icon={icon}
+            iconPosition="left"
             required
             type={type}
             name={name}
             placeholder={label}
             value={this.state[name]}
             onChange={this.onInputChange}
-          ></input>
+          />
         </div>
       );
     });
@@ -49,20 +61,44 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="ui container">
-        <form className="ui form" onSubmit={this.onFormSubmit}>
-          {this.renderError()}
-          {this.renderFields()}
-          <button type="submit" className="ui inverted primary button">
-            Log In
-          </button>
-        </form>
-        <Link to="/signup">
-          If you do not have an account click here to sign up
-        </Link>
-      </div>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" textAlign="center">
+            Login to your account
+          </Header>
+          <a href="/auth/google">
+            <Button
+              basic
+              fluid
+              size="large"
+              type="submit"
+              style={{ marginBottom: "5px" }}
+            >
+              <Icon name="google" />
+              Continue with Google
+            </Button>
+          </a>
+          <Divider horizontal>Or</Divider>
+          <Form size="large" onSubmit={this.onFormSubmit}>
+            <Segment stacked>
+              {this.renderError()}
+              {this.renderFields()}
+              <Button primary fluid size="large" type="submit">
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            New to us? <Link to="/signup">Sign Up</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
 
-export default LoginForm;
+export default connect(null, { logIn })(LoginForm);

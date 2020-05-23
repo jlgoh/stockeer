@@ -16,7 +16,7 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="ui container">
+      <div className="ui container" style={{ marginTop: "10px" }}>
         <form
           onSubmit={this.onTermSubmit}
           className="ui fluid center category search"

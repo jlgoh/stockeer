@@ -66,6 +66,10 @@ module.exports = (app) => {
 
   //Login with username and password
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    res.send({ id: req.user.id, username: req.user.username });
+    res.send({
+      id: req.user.id,
+      username: req.user.username,
+      signUpDate: req.user.signUpDate,
+    });
   });
 };
