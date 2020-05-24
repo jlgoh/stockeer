@@ -25,10 +25,11 @@ class ChartWrapper extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    //Fetch intraday stock
+    //Fetch intraday stock if it is not in store and if user is on 1D tab AND not ERROR
     if (
       !(`${this.props.term}_INTRADAY` in this.props.stocks) &&
-      this.state["1D"]
+      this.state["1D"] &&
+      !this.props.stocks["ERROR"]
     ) {
       this.props.fetchStock("INTRADAY", this.props.term);
     }
@@ -37,6 +38,15 @@ class ChartWrapper extends React.Component {
     if (
       prevProps.term !== this.props.term &&
       !(`${this.props.term}_DAILY` in this.props.stocks)
+    ) {
+      this.props.fetchStock("DAILY", this.props.term);
+    }
+
+    //Fetch stock again if store currently stores ERROR
+    //AND that new search term is in already store to update ERROR to false
+    if (
+      `${this.props.term}_DAILY` in this.props.stocks &&
+      this.props.stocks["ERROR"]
     ) {
       this.props.fetchStock("DAILY", this.props.term);
     }
@@ -76,6 +86,15 @@ class ChartWrapper extends React.Component {
   }
 
   render() {
+    //Check whether search is valid
+    if (this.props.stocks["ERROR"]) {
+      return (
+        <div className="ui container" style={{ marginTop: "10px" }}>
+          <div className="ui red message">{this.props.stocks["ERROR"]}</div>
+        </div>
+      );
+    }
+
     //If object store is empty (Loading) or stock is not in store (Subsequent queries)
     if (!(`${this.props.term}_DAILY` in this.props.stocks)) {
       return <Loading />;

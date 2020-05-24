@@ -2,6 +2,7 @@ import axios from "axios";
 import history from "../history";
 import alphavantage from "../api/alphavantage";
 import { processData } from "../components/charts/utils";
+import validateRequests from "../utils/validateRequests";
 const keys = require("../config/keys");
 
 //Sidebar toggler
@@ -28,6 +29,9 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
         keys.alphaVantageKey
       }&symbol=${symbol.toUpperCase()}&function=${param}`
     );
+
+    if (!validateRequests(res, dispatch)) return;
+
     dispatch({
       type: "FETCH_DAILY_STOCK",
       payload: { [`${symbol.toUpperCase()}_DAILY`]: processData(param, res) },
@@ -41,6 +45,9 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
         keys.alphaVantageKey
       }&symbol=${symbol.toUpperCase()}&function=${param}`
     );
+
+    if (!validateRequests(res, dispatch)) return;
+
     dispatch({
       type: "FETCH_INTRADAY_STOCK",
       payload: {
