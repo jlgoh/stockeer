@@ -1,8 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Sidebar, Menu } from "semantic-ui-react";
+import { Sidebar, Menu, Icon } from "semantic-ui-react";
 import { toggleSideBar } from "../actions";
+
+const SIDEBAR_LOGGED_OUT_BUTTONS = [
+  { label: "Signup", pathname: "/signup" },
+  { label: "Login", pathname: "/login" },
+];
+
+const SIDEBAR_LOGGED_IN_BUTTONS = [
+  { label: "Search", pathname: "/search" },
+  { label: "Watchlist", pathname: "/watchlist" },
+];
 
 class SidebarComponent extends React.Component {
   toggleSideBar = () => this.props.toggleSideBar(false);
@@ -12,49 +22,31 @@ class SidebarComponent extends React.Component {
       case null:
         return;
       case false:
-        return (
-          <div>
-            <Menu.Item>
-              <Link to="/" className="item" onClick={this.toggleSideBar}>
-                Stock
+        return SIDEBAR_LOGGED_OUT_BUTTONS.map((button) => {
+          return (
+            <Menu.Item
+              style={{ padding: "0.7em 1.14285714em" }}
+              key={button.label}
+            >
+              <Link to={button.pathname} onClick={this.toggleSideBar}>
+                {button.label}
               </Link>
             </Menu.Item>
-            <Menu.Item>
-              <Link to="/signup" className="item" onClick={this.toggleSideBar}>
-                Signup
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link to="/login" className="item" onClick={this.toggleSideBar}>
-                Login
-              </Link>
-            </Menu.Item>
-          </div>
-        );
+          );
+        });
       default:
-        return (
-          <div>
-            <Menu.Item>
-              <Link to="/" className="item" onClick={this.toggleSideBar}>
-                Stock
+        return SIDEBAR_LOGGED_IN_BUTTONS.map((button) => {
+          return (
+            <Menu.Item
+              style={{ padding: "0.7em 1.14285714em" }}
+              key={button.label}
+            >
+              <Link to={button.pathname} onClick={this.toggleSideBar}>
+                {button.label}
               </Link>
             </Menu.Item>
-            <Menu.Item>
-              <Link to="/search" className="item" onClick={this.toggleSideBar}>
-                Search
-              </Link>
-            </Menu.Item>
-            <Menu.Item>
-              <Link
-                to="/watchlist"
-                className="item"
-                onClick={this.toggleSideBar}
-              >
-                Watchlist
-              </Link>
-            </Menu.Item>
-          </div>
-        );
+          );
+        });
     }
   }
 
@@ -71,7 +63,16 @@ class SidebarComponent extends React.Component {
         visible={sidebar}
         width="thin"
       >
-        {this.renderSidebarButtons()}
+        <div>
+          <Menu.Item className="item" style={{ padding: "1.5em 1.14285714em" }}>
+            <Link to="/" onClick={this.toggleSideBar}>
+              <h3>
+                <Icon name="magic" /> Stocky
+              </h3>
+            </Link>
+          </Menu.Item>
+          {this.renderSidebarButtons()}
+        </div>
       </Sidebar>
     );
   }

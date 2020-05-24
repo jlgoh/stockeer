@@ -12,13 +12,13 @@ class Header extends React.Component {
         return (
           <div className="ui simple dropdown item">
             Login <i className="dropdown icon" />
-            <div className="menu">
-              <a href="/auth/google" className="fluid ui secondary button">
+            <div className="menu" style={{ backgroundColor: "#2185d0" }}>
+              <a href="/auth/google" className="fluid ui primary button">
                 Login with Google
               </a>
-              <Link to="/login" className="fluid ui secondary button">
+              <a href="/login" className="fluid ui primary button">
                 Login with Username
-              </Link>
+              </a>
             </div>
           </div>
         );
@@ -43,7 +43,7 @@ class Header extends React.Component {
         </div>
 
         <Link to="/" className="active item">
-          <i className="gripfire icon" style={{ color: "white" }}></i>
+          <i className="magic icon" style={{ color: "white" }}></i>
           Stocky
         </Link>
         <div className="inverted secondary right menu">

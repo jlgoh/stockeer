@@ -50,10 +50,11 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
   }
 };
 
-//Signup (not sent to the store)
-export const signUp = async (formValues) => {
+//Login
+export const logIn = (formValues) => async (dispatch) => {
   try {
-    const response = await axios.post("/api/signup", formValues);
+    const response = await axios.post("/api/login", formValues);
+    dispatch({ type: "FETCH_USER", payload: response.data });
     history.push("/");
     return response;
   } catch (err) {
@@ -61,11 +62,10 @@ export const signUp = async (formValues) => {
   }
 };
 
-//Login (not sent to store)
-export const logIn = (formValues) => async (dispatch) => {
+//Signup (not sent to the store)
+export const signUp = async (formValues) => {
   try {
-    const response = await axios.post("/api/login", formValues);
-    dispatch({ type: "FETCH_USER", payload: response.data });
+    const response = await axios.post("/api/signup", formValues);
     history.push("/");
     return response;
   } catch (err) {

@@ -14,7 +14,6 @@ class SearchPage extends React.Component {
 
   renderChart() {
     //Render chart either by term earch or direct URL navigation
-
     if (this.state.term || this.props.location.search) {
       return (
         <ChartWrapper
