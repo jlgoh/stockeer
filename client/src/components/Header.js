@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { toggleSideBar } from "../actions";
 
 class Header extends React.Component {
   renderContent() {
@@ -31,12 +32,13 @@ class Header extends React.Component {
     }
   }
   render() {
+    const { toggleSideBar } = this.props;
     return (
       <div
         className="ui borderless inverted menu"
         style={{ borderRadius: "0", marginBottom: "0" }}
       >
-        <div className="ui dropdown item toggler">
+        <div className="ui dropdown item" onClick={() => toggleSideBar(true)}>
           <i className="bars icon" style={{ color: "white" }}></i>
         </div>
 
@@ -58,4 +60,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { toggleSideBar })(Header);

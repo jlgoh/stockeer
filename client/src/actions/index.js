@@ -4,6 +4,11 @@ import alphavantage from "../api/alphavantage";
 import { processData } from "../components/charts/utils";
 const keys = require("../config/keys");
 
+//Sidebar toggler
+export const toggleSideBar = (visible) => (dispatch) => {
+  dispatch({ type: "TOGGLE_SIDEBAR", payload: visible });
+};
+
 //Fetch user
 export const fetchUser = () => async (dispatch) => {
   const response = await axios.get("/api/current_user");

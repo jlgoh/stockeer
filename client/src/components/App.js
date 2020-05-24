@@ -2,8 +2,9 @@ import React from "react";
 import { Router, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import history from "../history";
+import { Sidebar } from "semantic-ui-react";
 
-import Sidebar from "./Sidebar";
+import SidebarComponent from "./Sidebar";
 import Header from "./Header";
 import Home from "./Home";
 import Loading from "./Loading";
@@ -53,12 +54,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="pusher">
-        <div>
-          <Router history={history}>
-            <div>
+      <div>
+        <Router history={history}>
+          <Sidebar.Pushable style={{ height: "100vh" }}>
+            <SidebarComponent />
+            <Sidebar.Pusher>
               <Header />
-              <Sidebar />
               <Route path="/" exact component={Home} />
               <Route
                 path="/login"
@@ -80,9 +81,9 @@ class App extends React.Component {
                 path="/watchlist"
                 render={this.renderRestrictedComponent(WatchPage)}
               />
-            </div>
-          </Router>
-        </div>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+        </Router>
       </div>
     );
   }
