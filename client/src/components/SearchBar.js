@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
             <input
               className="fluid prompt"
               type="text"
-              placeholder="Search"
+              placeholder="Search for a ticker symbol"
               value={this.state.term}
               onChange={this.onInputChange}
             ></input>
