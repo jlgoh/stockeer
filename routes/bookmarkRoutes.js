@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
+const requireLogin = require("../middlewares/requireLogin");
 mongoose.set("useFindAndModify", false); //deprecation issue
 
 module.exports = (app) => {
   //POST Bookmark
-  app.post("/api/bookmarks", async (req, res) => {
+  app.post("/api/bookmarks", requireLogin, async (req, res) => {
     const { symbolName } = req.body;
 
     //If a symbol name is not provided
@@ -45,13 +46,13 @@ module.exports = (app) => {
   });
 
   //GET all of user bookmarks
-  app.get("/api/bookmarks", async (req, res) => {
+  app.get("/api/bookmarks", requireLogin, async (req, res) => {
     const user = await User.findOne({ _id: req.user.id });
     res.send(user.bookmarks);
   });
 
   //GET a single bookmark
-  app.get("/api/bookmarks/:bookmarkId", async (req, res) => {
+  app.get("/api/bookmarks/:bookmarkId", requireLogin, async (req, res) => {
     try {
       const bookmark = await User.findOne({
         _id: req.user.id,
@@ -72,7 +73,7 @@ module.exports = (app) => {
   });
 
   //PATCH Bookmark
-  app.patch("/api/bookmarks/:bookmarkId", async (req, res) => {
+  app.patch("/api/bookmarks/:bookmarkId", requireLogin, async (req, res) => {
     try {
       const updatedNote = req.body.note;
       const updatedBookmark = await User.findOneAndUpdate(
@@ -107,7 +108,7 @@ module.exports = (app) => {
   });
 
   //DELETE Bookmark
-  app.delete("/api/bookmarks/:bookmarkId", async (req, res) => {
+  app.delete("/api/bookmarks/:bookmarkId", requireLogin, async (req, res) => {
     try {
       const bookmark = await User.findOneAndUpdate(
         {
