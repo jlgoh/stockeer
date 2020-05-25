@@ -29,6 +29,7 @@ app.use(passport.session());
 
 //Load routes
 require("./routes/authRoutes")(app);
+require("./routes/bookmarkRoutes")(app);
 
 //Routing for deployment
 if (process.env.NODE_ENV === "production") {

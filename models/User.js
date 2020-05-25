@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
 const { Schema } = mongoose;
+const crypto = require("crypto");
+const bookmarkSchema = require("./Bookmark");
 
 const userSchema = new Schema({
   googleId: String,
@@ -9,6 +10,7 @@ const userSchema = new Schema({
   hash: String,
   salt: String,
   signUpDate: String,
+  bookmarks: [bookmarkSchema],
 });
 
 //Securing passwords
