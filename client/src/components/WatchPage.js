@@ -4,10 +4,6 @@ import { getBookmarks } from "../actions";
 import ChartWrapper from "./charts/ChartWrapper";
 
 class WatchPage extends React.Component {
-  componentDidMount() {
-    this.props.getBookmarks();
-  }
-
   renderBookmarks() {
     return Object.keys(this.props.bookmarks).map((bookmark) => (
       <ChartWrapper key={bookmark} term={bookmark} />
@@ -15,12 +11,7 @@ class WatchPage extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.renderBookmarks()}
-        {/* {removeOptionType()} */}
-      </div>
-    );
+    return <div>{this.renderBookmarks()}</div>;
   }
 }
 
