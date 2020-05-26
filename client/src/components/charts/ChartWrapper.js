@@ -1,5 +1,10 @@
 import React from "react";
-import { fetchStock } from "../../actions";
+import {
+  fetchStock,
+  getBookmarks,
+  addBookmark,
+  deleteBookmark,
+} from "../../actions";
 import { connect } from "react-redux";
 import Chart from "./Chart";
 import Loading from "../Loading";
@@ -67,6 +72,33 @@ class ChartWrapper extends React.Component {
     });
   }
 
+  renderButton() {
+    if (this.props.term in this.props.bookmarks) {
+      return (
+        <button
+          onClick={() =>
+            this.props.deleteBookmark(
+              this.props.term,
+              this.props.bookmarks[this.props.term]._id
+            )
+          }
+          className="ui primary button"
+        >
+          Added
+        </button>
+      );
+    }
+
+    return (
+      <button
+        onClick={() => this.props.addBookmark(this.props.term)}
+        className="ui primary button"
+      >
+        Add to WatchList
+      </button>
+    );
+  }
+
   sliceData(time) {
     const fullData = this.props.stocks[`${this.props.term}_DAILY`];
     switch (time) {
@@ -127,6 +159,9 @@ class ChartWrapper extends React.Component {
               )}
             </TypeChooser>
           </div>
+          <div className="ui center aligned container">
+            {this.renderButton()}
+          </div>
         </div>
       </div>
     );
@@ -136,7 +171,13 @@ class ChartWrapper extends React.Component {
 const mapStateToProps = (state) => {
   return {
     stocks: state.stocks,
+    bookmarks: state.bookmarks,
   };
 };
 
-export default connect(mapStateToProps, { fetchStock })(ChartWrapper);
+export default connect(mapStateToProps, {
+  fetchStock,
+  getBookmarks,
+  addBookmark,
+  deleteBookmark,
+})(ChartWrapper);

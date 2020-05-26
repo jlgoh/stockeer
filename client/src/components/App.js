@@ -12,11 +12,12 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import WatchPage from "./WatchPage";
 import SearchPage from "./SearchPage";
-import { fetchUser } from "../actions";
+import { fetchUser, getBookmarks } from "../actions";
 
 class App extends React.Component {
   componentDidMount() {
     this.props.fetchUser();
+    this.props.getBookmarks();
   }
 
   renderRedirect = (pathname) => {
@@ -95,4 +96,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchUser })(App);
+export default connect(mapStateToProps, { fetchUser, getBookmarks })(App);

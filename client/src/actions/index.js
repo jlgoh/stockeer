@@ -1,9 +1,37 @@
 import axios from "axios";
 import history from "../history";
+import _ from "lodash";
 import alphavantage from "../api/alphavantage";
 import { processData } from "../components/charts/utils";
 import validateRequests from "../utils/validateRequests";
 const keys = require("../config/keys");
+
+//Delete user's bookmark
+export const deleteBookmark = (symbolName, bookmarkId) => async (dispatch) => {
+  await axios.delete(`/api/bookmarks/${bookmarkId}`);
+  dispatch({
+    type: "DELETE_BOOKMARK",
+    payload: symbolName,
+  });
+};
+
+//Get all of user's bookmarks
+export const getBookmarks = () => async (dispatch) => {
+  const res = await axios.get("/api/bookmarks");
+  dispatch({
+    type: "FETCH_BOOKMARKS",
+    payload: _.keyBy(res.data, "symbolName"),
+  });
+};
+
+//Add bookmark
+export const addBookmark = (symbolName) => async (dispatch) => {
+  const res = await axios.post("/api/bookmarks", { symbolName });
+  dispatch({
+    type: "FETCH_BOOKMARKS",
+    payload: { [symbolName]: res.data },
+  });
+};
 
 //Sidebar toggler
 export const toggleSideBar = (visible) => (dispatch) => {
@@ -12,9 +40,9 @@ export const toggleSideBar = (visible) => (dispatch) => {
 
 //Fetch user
 export const fetchUser = () => async (dispatch) => {
-  const response = await axios.get("/api/current_user");
+  const res = await axios.get("/api/current_user");
 
-  dispatch({ type: "FETCH_USER", payload: response.data });
+  dispatch({ type: "FETCH_USER", payload: res.data });
 };
 
 //GET Request to AlphaVantage API for Stock Prices(Daily or Intra)

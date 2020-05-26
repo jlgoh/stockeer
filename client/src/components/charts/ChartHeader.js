@@ -29,23 +29,25 @@ class ChartHeader extends React.Component {
           <h2 className="ui huge header" style={{ marginBottom: 0 }}>
             {recentStocks[1].toFixed(2)}
           </h2>
-          <h3
-            style={{
-              marginTop: 0,
-              color: `${
-                this.getChange(recentStocks) > 0 ? "#26D500" : "#E10000"
-              }`,
-            }}
-          >
-            {this.getChange(recentStocks)} (
-            {this.getPercentageChange(recentStocks)}%){" "}
-            <i
-              className={`${
-                this.getChange(recentStocks) > 0 ? "green up" : "red down"
-              } arrow alternate circle icon`}
-              style={{ display: "inline-block", fontSize: "1em" }}
-            ></i>
-          </h3>
+          <div>
+            <h3
+              style={{
+                marginTop: 0,
+                color: `${
+                  this.getChange(recentStocks) > 0 ? "#26D500" : "#E10000"
+                }`,
+              }}
+            >
+              {this.getChange(recentStocks)} (
+              {this.getPercentageChange(recentStocks)}%){" "}
+              <i
+                className={`${
+                  this.getChange(recentStocks) > 0 ? "green up" : "red down"
+                } arrow alternate circle icon`}
+                style={{ display: "inline-block", fontSize: "1em" }}
+              ></i>
+            </h3>
+          </div>
         </div>
       </div>
     );
