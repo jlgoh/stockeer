@@ -26,7 +26,8 @@ class ChartWrapper extends React.Component {
   state = { ...TABS, "5M": true };
 
   componentDidMount() {
-    this.props.fetchStock("DAILY", this.props.term);
+    if (!(`${this.props.term}_DAILY` in this.props.stocks))
+      this.props.fetchStock("DAILY", this.props.term);
   }
 
   componentDidUpdate(prevProps) {
