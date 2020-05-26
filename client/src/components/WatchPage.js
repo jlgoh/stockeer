@@ -11,13 +11,32 @@ class WatchPage extends React.Component {
   }
 
   render() {
-    return <div>{this.renderBookmarks()}</div>;
+    if (this.props.stocks["ERROR"]) {
+      return (
+        <div className="ui container" style={{ marginTop: "10px" }}>
+          <div className="ui red message">{this.props.stocks["ERROR"]}</div>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        style={{
+          height: `${
+            Object.keys(this.props.stocks).length <= 2 ? "100vh" : "100%"
+          }`,
+        }}
+      >
+        {this.renderBookmarks()}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     bookmarks: state.bookmarks,
+    stocks: state.stocks,
   };
 };
 
