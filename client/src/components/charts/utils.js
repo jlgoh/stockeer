@@ -14,8 +14,13 @@ function parseData(d) {
 
 export function removeOptionType() {
   //An issue developer has yet to remove
-  document.getElementById("type").previousSibling.style.display = "none";
-  document.getElementById("type").style.display = "none";
+  const elements = document.getElementsByClassName("types");
+  for (let element of elements) {
+    element.children[1].children[0].style.display = "none";
+    element.children[1].children[1].style.display = "none";
+  }
+
+  return;
 }
 
 export function processData(param, res) {

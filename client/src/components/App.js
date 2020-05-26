@@ -57,7 +57,7 @@ class App extends React.Component {
     return (
       <div>
         <Router history={history}>
-          <Sidebar.Pushable style={{ height: "100vh" }}>
+          <Sidebar.Pushable style={{ height: "100%" }}>
             <SidebarComponent />
             <Sidebar.Pusher>
               <Header />

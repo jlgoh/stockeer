@@ -28,7 +28,7 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ height: "100vh" }}>
         <SearchBar onTermSubmit={this.onTermSubmit} />
         {this.renderChart()}
       </div>

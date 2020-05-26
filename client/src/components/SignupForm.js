@@ -50,7 +50,7 @@ class SignupForm extends React.Component {
     return (
       <form
         className="ui container form"
-        style={{ marginTop: "10px" }}
+        style={{ marginTop: "10px", height: "100vh" }}
         onSubmit={this.onFormSubmit}
       >
         {this.renderError()}

@@ -129,7 +129,11 @@ class ChartWrapper extends React.Component {
 
     //If object store is empty (Loading) or stock is not in store (Subsequent queries)
     if (!(`${this.props.term}_DAILY` in this.props.stocks)) {
-      return <Loading />;
+      return (
+        <div className="ui segment">
+          <Loading />
+        </div>
+      );
     }
 
     if (
@@ -147,7 +151,7 @@ class ChartWrapper extends React.Component {
       <div>
         <div className="ui top attached tabular menu">{this.renderTabs()}</div>
         <div className="ui bottom attached active tab segment">
-          <div className="ui container">
+          <div className="ui container types">
             <ChartHeader term={this.props.term} />
             <TypeChooser>
               {(type) => (

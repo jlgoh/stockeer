@@ -10,12 +10,17 @@ class WatchPage extends React.Component {
 
   renderBookmarks() {
     return Object.keys(this.props.bookmarks).map((bookmark) => (
-      <ChartWrapper term={bookmark} />
+      <ChartWrapper key={bookmark} term={bookmark} />
     ));
   }
 
   render() {
-    return <div>{this.renderBookmarks()}</div>;
+    return (
+      <div>
+        {this.renderBookmarks()}
+        {/* {removeOptionType()} */}
+      </div>
+    );
   }
 }
 
