@@ -6,6 +6,15 @@ import { processData } from "../components/charts/utils";
 import validateRequests from "../utils/validateRequests";
 const keys = require("../config/keys");
 
+//Update user's bookmark (note)
+export const updateBookmark = (symbolName, bookmarkId, note) => async (
+  dispatch
+) => {
+  const res = await axios.patch(`/api/bookmarks/${bookmarkId}`, { note });
+  dispatch({ type: "FETCH_BOOKMARKS", payload: { [symbolName]: res.data } });
+  return res;
+};
+
 //Delete user's bookmark
 export const deleteBookmark = (symbolName, bookmarkId) => async (dispatch) => {
   await axios.delete(`/api/bookmarks/${bookmarkId}`);
@@ -90,6 +99,11 @@ export const logIn = (formValues) => async (dispatch) => {
   try {
     const response = await axios.post("/api/login", formValues);
     dispatch({ type: "FETCH_USER", payload: response.data });
+    const res = await axios.get("/api/bookmarks"); //Fetch bookmarks when logged in too
+    dispatch({
+      type: "FETCH_BOOKMARKS",
+      payload: _.keyBy(res.data, "symbolName"),
+    });
     history.push("/");
     return response;
   } catch (err) {

@@ -23,7 +23,7 @@ class WatchPage extends React.Component {
       <div
         style={{
           height: `${
-            Object.keys(this.props.stocks).length <= 2 ? "100vh" : "100%"
+            Object.keys(this.props.bookmarks).length <= 1 ? "100vh" : "100%"
           }`,
         }}
       >

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  fetchStock,
-  getBookmarks,
-  addBookmark,
-  deleteBookmark,
-} from "../../actions";
+import { fetchStock, getBookmarks } from "../../actions";
 import { connect } from "react-redux";
 import Chart from "./Chart";
 import Loading from "../Loading";
@@ -73,33 +68,6 @@ class ChartWrapper extends React.Component {
     });
   }
 
-  renderButton() {
-    if (this.props.term in this.props.bookmarks) {
-      return (
-        <button
-          onClick={() =>
-            this.props.deleteBookmark(
-              this.props.term,
-              this.props.bookmarks[this.props.term]._id
-            )
-          }
-          className="ui primary button"
-        >
-          Added
-        </button>
-      );
-    }
-
-    return (
-      <button
-        onClick={() => this.props.addBookmark(this.props.term)}
-        className="ui primary button"
-      >
-        Add to WatchList
-      </button>
-    );
-  }
-
   sliceData(time) {
     const fullData = this.props.stocks[`${this.props.term}_DAILY`];
     switch (time) {
@@ -150,7 +118,12 @@ class ChartWrapper extends React.Component {
 
     return (
       <div>
-        <div className="ui top attached tabular menu">{this.renderTabs()}</div>
+        <div
+          className="ui top attached tabular menu"
+          style={{ marginTop: "10px" }}
+        >
+          {this.renderTabs()}
+        </div>
         <div className="ui bottom attached active tab segment">
           <div className="ui container types">
             <ChartHeader term={this.props.term} />
@@ -163,9 +136,6 @@ class ChartWrapper extends React.Component {
                 />
               )}
             </TypeChooser>
-          </div>
-          <div className="ui center aligned container">
-            {this.renderButton()}
           </div>
         </div>
       </div>
@@ -183,6 +153,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   fetchStock,
   getBookmarks,
-  addBookmark,
-  deleteBookmark,
 })(ChartWrapper);
