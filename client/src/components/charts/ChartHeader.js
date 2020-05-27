@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addBookmark, deleteBookmark, updateBookmark } from "../../actions";
-import { Form, TextArea } from "semantic-ui-react";
+import { Form, TextArea, Confirm } from "semantic-ui-react";
 
 class ChartHeader extends React.Component {
   state = {
@@ -10,6 +10,7 @@ class ChartHeader extends React.Component {
       ? this.props.bookmarks[this.props.term].note
       : "",
     updateConfirm: false,
+    removeWarning: false,
   };
 
   getRecentStocks() {
@@ -25,6 +26,14 @@ class ChartHeader extends React.Component {
   getPercentageChange(recentStocks) {
     return ((this.getChange(recentStocks) / recentStocks[0]) * 100).toFixed(2);
   }
+
+  renderWarning = () => this.setState({ removeWarning: true });
+  handleConfirm = () => {
+    const { term, bookmarks } = this.props;
+    this.props.deleteBookmark(term, bookmarks[term]._id);
+    this.setState({ removeWarning: false });
+  };
+  handleCancel = () => this.setState({ removeWarning: false });
 
   confirmUpdate = async () => {
     const { term, bookmarks } = this.props;
@@ -104,9 +113,7 @@ class ChartHeader extends React.Component {
                 cursor: "pointer",
               }}
               title="Remove from Watchlist"
-              onClick={() =>
-                this.props.deleteBookmark(term, bookmarks[term]._id)
-              }
+              onClick={this.renderWarning}
             />
             &ensp;
             <i
@@ -125,6 +132,12 @@ class ChartHeader extends React.Component {
             />
           </div>
           <div>{this.renderInput()}</div>
+          <Confirm
+            open={this.state.removeWarning}
+            header={`This will remove ${this.props.term} from your watchlist`}
+            onCancel={this.handleCancel}
+            onConfirm={this.handleConfirm}
+          />
         </div>
       );
     }
