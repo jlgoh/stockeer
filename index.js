@@ -14,7 +14,10 @@ require("./models/User");
 require("./services/passport");
 
 //Connect to MongoDB
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //Middlewares
 app.use(bodyParser.json()); //Incoming requests body under req.body
