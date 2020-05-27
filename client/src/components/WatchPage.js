@@ -19,6 +19,30 @@ class WatchPage extends React.Component {
       );
     }
 
+    if (Object.keys(this.props.bookmarks).length === 0) {
+      return (
+        <div
+          className="ui container"
+          style={{ height: "100vh", marginTop: "10px" }}
+        >
+          <div class="ui message">
+            <div class="header">
+              You do not have any tickers symbols on your watchlist
+            </div>
+            <ul class="list">
+              <li>
+                <a href="/search">Search for a ticker symbol</a>
+              </li>
+              <li>
+                Click on <i className="bookmark outline icon" />
+                to add to watchlist
+              </li>
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div
         style={{
