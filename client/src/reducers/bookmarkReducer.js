@@ -1,9 +1,10 @@
 import _ from "lodash";
 
-export default (state = {}, action) => {
+//null to differentiate between loading and empty bookamrks list
+export default (state = null, action) => {
   switch (action.type) {
     case "FETCH_BOOKMARKS":
-      return { ...state, ...action.payload };
+      return state ? { ...state, ...action.payload } : { ...action.payload }; //On first load, null state return payload only
     case "DELETE_BOOKMARK":
       return _.omit(state, action.payload);
     default:

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getBookmarks } from "../actions";
 import ChartWrapper from "./charts/ChartWrapper";
+import Loading from "./Loading";
 
 class WatchPage extends React.Component {
   renderBookmarks() {
@@ -19,17 +20,19 @@ class WatchPage extends React.Component {
       );
     }
 
+    if (!this.props.bookmarks) return <Loading />;
+
     if (Object.keys(this.props.bookmarks).length === 0) {
       return (
         <div
           className="ui container"
           style={{ height: "100vh", marginTop: "10px" }}
         >
-          <div class="ui message">
-            <div class="header">
+          <div className="ui message">
+            <div className="header">
               You do not have any tickers symbols on your watchlist
             </div>
-            <ul class="list">
+            <ul className="list">
               <li>
                 <a href="/search">Search for a ticker symbol</a>
               </li>
