@@ -35,10 +35,11 @@ app.use(passport.session());
 require("./routes/authRoutes")(app);
 require("./routes/bookmarkRoutes")(app);
 
-app.get("/api/data/:term", (req, res, next) => {
+//Proxy route for WTD API to prevent CORS issue using server-to-sever commmunication
+app.get("/api/proxy/wtd", (req, res, next) => {
   request(
     {
-      url: `https://api.worldtradingdata.com/api/v1/stock_search?search_term=${req.params.term}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`,
+      url: `https://api.worldtradingdata.com/api/v1/stock_search?search_term=${req.query.term}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`,
     },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {

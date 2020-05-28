@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const wtd = axios.create({
-  baseURL: "/api/data",
-  // "https://api.worldtradingdata.com/api/v1",
+  baseURL: "/api/proxy",
 });
 
 //Supplement WTD API which does not carry NASDAQ-listed securities
