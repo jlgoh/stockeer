@@ -1,7 +1,7 @@
 import React from "react";
 import { Search, Grid } from "semantic-ui-react";
 import keys from "../config/keys";
-import wtd from "../api/wtd";
+import { wtd, nasdaq100 } from "../api/wtd";
 
 const initialState = { term: "", isLoading: false, results: [] };
 
@@ -10,20 +10,28 @@ class SearchBar extends React.Component {
 
   onInputChange = async (event) => {
     if (event.target.value.length < 1) return this.setState(initialState);
-
     this.setState({ term: event.target.value, isLoading: true });
+
     try {
       const res = await wtd.get(
         `/stock_search?search_term=${event.target.value}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`
       );
+      const nasdaqResults = nasdaq100.filter(
+        ({ title, description }) =>
+          title.includes(this.state.term.toUpperCase()) ||
+          description.toUpperCase().includes(this.state.term.toUpperCase())
+      );
       this.setState({
         isLoading: false,
-        results: res.data.data.map((stock) => {
-          return {
-            title: stock.symbol,
-            description: stock.name,
-          };
-        }),
+        results: [
+          ...res.data.data.map((stock) => {
+            return {
+              title: stock.symbol,
+              description: stock.name,
+            };
+          }),
+          ...nasdaqResults,
+        ].slice(0, 7),
       });
     } catch (err) {
       console.log(err);
