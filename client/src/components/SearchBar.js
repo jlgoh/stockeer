@@ -1,6 +1,5 @@
 import React from "react";
 import { Search, Grid } from "semantic-ui-react";
-import keys from "../config/keys";
 import { wtd, nasdaq100 } from "../api/wtd";
 
 const initialState = { term: "", isLoading: false, results: [] };
@@ -13,9 +12,11 @@ class SearchBar extends React.Component {
     this.setState({ term: event.target.value, isLoading: true });
 
     try {
-      const res = await wtd.get(
-        `/stock_search?search_term=${event.target.value}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`
-      );
+      const res = await wtd.get(`/${event.target.value}`);
+      //  await wtd.get(
+      //   `/stock_search?search_term=${event.target.value}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`
+      // );
+      console.log(res);
       const nasdaqResults = nasdaq100.filter(
         ({ title, description }) =>
           title.includes(this.state.term.toUpperCase()) ||

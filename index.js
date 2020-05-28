@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const request = require("request");
 const keys = require("./config/keys");
 
 const app = express();
@@ -33,6 +34,20 @@ app.use(passport.session());
 //Load routes
 require("./routes/authRoutes")(app);
 require("./routes/bookmarkRoutes")(app);
+
+app.get("/api/data/:term", (req, res, next) => {
+  request(
+    {
+      url: `https://api.worldtradingdata.com/api/v1/stock_search?search_term=${req.params.term}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`,
+    },
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: "error", message: err.message });
+      }
+      res.send(body);
+    }
+  );
+});
 
 //Routing for deployment
 if (process.env.NODE_ENV === "production") {
