@@ -10,6 +10,7 @@ const userSchema = new Schema({
   hash: String,
   salt: String,
   signUpDate: String,
+  lastLoggedIn: String,
   bookmarks: [bookmarkSchema],
 });
 

@@ -25,7 +25,6 @@ module.exports = (app) => {
       id: req.user.id,
       username: req.user.username,
       googleId: req.user.googleId,
-      signUpDate: req.user.signUpDate,
     });
   });
 
@@ -65,7 +64,15 @@ module.exports = (app) => {
   });
 
   //Login with username and password
-  app.post("/api/login", passport.authenticate("local"), (req, res) => {
+  app.post("/api/login", passport.authenticate("local"), async (req, res) => {
+    await User.findOneAndUpdate(
+      { _id: req.user.id },
+      {
+        lastLoggedIn: new Date().toLocaleString("en-SG", {
+          timeZone: "Singapore",
+        }),
+      }
+    );
     res.send({
       id: req.user.id,
       username: req.user.username,
