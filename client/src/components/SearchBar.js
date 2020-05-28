@@ -1,12 +1,38 @@
 import React from "react";
+import { Search, Grid } from "semantic-ui-react";
+import keys from "../config/keys";
+import wtd from "../api/wtd";
+
+const initialState = { term: "", isLoading: false, results: [] };
 
 class SearchBar extends React.Component {
-  state = { term: "" };
+  state = initialState;
 
-  componentDidUpdate() {}
+  onInputChange = async (event) => {
+    if (event.target.value.length < 1) return this.setState(initialState);
 
-  onInputChange = (event) => {
-    this.setState({ term: event.target.value });
+    this.setState({ term: event.target.value, isLoading: true });
+    try {
+      const res = await wtd.get(
+        `/stock_search?search_term=${event.target.value}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`
+      );
+      this.setState({
+        isLoading: false,
+        results: res.data.data.map((stock) => {
+          return {
+            title: stock.symbol,
+            description: stock.name,
+          };
+        }),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleResultSelect = (event, { result }) => {
+    this.setState({ term: result.title });
+    this.props.onTermSubmit(result.title.toUpperCase());
   };
 
   onTermSubmit = (event) => {
@@ -21,16 +47,23 @@ class SearchBar extends React.Component {
           onSubmit={this.onTermSubmit}
           className="ui fluid center category search"
         >
-          <div className="ui fluid icon input">
-            <input
-              className="fluid prompt"
-              type="text"
-              placeholder="Search for a ticker symbol"
-              value={this.state.term}
-              onChange={this.onInputChange}
-            ></input>
-            <i className="search icon"></i>
-          </div>
+          <Grid>
+            <Grid.Column width={2} />
+            <Grid.Column width={12}>
+              <Search
+                input={{
+                  fluid: true,
+                  placeholder: "Enter a ticker symbol",
+                }}
+                loading={this.state.isLoading}
+                value={this.state.term}
+                results={this.state.results}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={this.onInputChange}
+              />
+            </Grid.Column>
+            <Grid.Column width={2} />
+          </Grid>
         </form>
       </div>
     );
