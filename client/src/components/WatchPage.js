@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getBookmarks } from "../actions";
-import ChartWrapper from "./charts/ChartWrapper";
 import WatchItem from "./WatchItem";
 import Loading from "./Loading";
 

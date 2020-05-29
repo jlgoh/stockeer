@@ -175,7 +175,7 @@ class ChartHeader extends React.Component {
               style={{
                 marginTop: 0,
                 color: `${
-                  this.getChange(recentStocks) > 0 ? "#26D500" : "#E10000"
+                  this.getChange(recentStocks) >= 0 ? "#26D500" : "#E10000"
                 }`,
               }}
             >
@@ -183,7 +183,7 @@ class ChartHeader extends React.Component {
               {this.getPercentageChange(recentStocks)}%){" "}
               <i
                 className={`${
-                  this.getChange(recentStocks) > 0 ? "green up" : "red down"
+                  this.getChange(recentStocks) >= 0 ? "green up" : "red down"
                 } arrow alternate circle icon`}
                 style={{ display: "inline-block", fontSize: "1em" }}
               ></i>
