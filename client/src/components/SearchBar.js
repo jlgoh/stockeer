@@ -1,18 +1,17 @@
 import React from "react";
 import { Search, Grid } from "semantic-ui-react";
 import { wtd, nasdaq100 } from "../api/wtd";
+import _ from "lodash";
 
 const initialState = { term: "", isLoading: false, results: [] };
 
 class SearchBar extends React.Component {
-  state = initialState;
+  constructor(props) {
+    super(props);
+    this.state = initialState;
 
-  onInputChange = async (event) => {
-    if (event.target.value.length < 1) return this.setState(initialState);
-    this.setState({ term: event.target.value, isLoading: true });
-
-    try {
-      const res = await wtd.get(`/wtd?term=${event.target.value}`);
+    this.handleInputChange = _.debounce(async (value) => {
+      const res = await wtd.get(`/wtd?term=${value}`);
       const nasdaqResults = nasdaq100.filter(
         ({ title, description }) =>
           title.includes(this.state.term.toUpperCase()) ||
@@ -30,6 +29,16 @@ class SearchBar extends React.Component {
           ...nasdaqResults,
         ].slice(0, 7),
       });
+      return res;
+    }, 200);
+  }
+
+  onInputChange = (event) => {
+    if (event.target.value.length < 1) return this.setState(initialState);
+    this.setState({ term: event.target.value, isLoading: true });
+
+    try {
+      this.handleInputChange(event.target.value);
     } catch (err) {
       console.log(err);
     }
