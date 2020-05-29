@@ -48,9 +48,8 @@ class WatchPage extends React.Component {
       <div
         className="ui container"
         style={{
-          height: `${
-            Object.keys(this.props.bookmarks).length <= 1 ? "100vh" : "100%"
-          }`,
+          height: "auto",
+          minHeight: "100vh",
         }}
       >
         <h1 className="ui  header" style={{ marginTop: "10px" }}>
