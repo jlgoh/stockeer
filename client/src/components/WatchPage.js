@@ -2,12 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { getBookmarks } from "../actions";
 import ChartWrapper from "./charts/ChartWrapper";
+import WatchItem from "./WatchItem";
 import Loading from "./Loading";
 
 class WatchPage extends React.Component {
   renderBookmarks() {
     return Object.keys(this.props.bookmarks).map((bookmark) => (
-      <ChartWrapper key={bookmark} term={bookmark} />
+      <WatchItem key={bookmark} term={bookmark} />
     ));
   }
 
@@ -24,10 +25,7 @@ class WatchPage extends React.Component {
 
     if (Object.keys(this.props.bookmarks).length === 0) {
       return (
-        <div
-          className="ui container"
-          style={{ height: "100vh", marginTop: "10px" }}
-        >
+        <div style={{ height: "100vh", marginTop: "10px" }}>
           <div className="ui message">
             <div className="header">
               You do not have any tickers symbols on your watchlist
@@ -48,13 +46,19 @@ class WatchPage extends React.Component {
 
     return (
       <div
+        className="ui container"
         style={{
           height: `${
             Object.keys(this.props.bookmarks).length <= 1 ? "100vh" : "100%"
           }`,
         }}
       >
-        {this.renderBookmarks()}
+        <h1 className="ui  header" style={{ marginTop: "10px" }}>
+          <i className="bookmark icon" />
+          <div className="content">My Watchlist</div>
+        </h1>
+
+        <div className="ui celled list">{this.renderBookmarks()}</div>
       </div>
     );
   }

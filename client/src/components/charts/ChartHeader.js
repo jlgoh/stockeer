@@ -163,7 +163,7 @@ class ChartHeader extends React.Component {
     return (
       <div
         className="ui center aligned dividing icon header"
-        style={{ padding: "0.5rem" }}
+        style={{ padding: "0.5rem", cursor: "default" }}
       >
         <div className="sub header">
           {this.props.term}
