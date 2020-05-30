@@ -10,6 +10,10 @@ const formFields = [
 class SignupForm extends React.Component {
   state = { username: "", email: "", password: "", error: "" };
 
+  componentDidMount() {
+    document.title = "Signup";
+  }
+
   onInputChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };

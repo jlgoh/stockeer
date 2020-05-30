@@ -21,6 +21,10 @@ const formFields = [
 class LoginForm extends React.Component {
   state = { username: "", password: "", error: "" };
 
+  componentDidMount() {
+    document.title = "Login";
+  }
+
   onInputChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };

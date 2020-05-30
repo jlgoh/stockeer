@@ -7,6 +7,10 @@ import * as qs from "query-string";
 class SearchPage extends React.Component {
   state = { term: "" };
 
+  componentDidMount() {
+    document.title = "Search";
+  }
+
   onTermSubmit = (term) => {
     this.setState({ term });
     history.push(`?q=${term}`);

@@ -13,6 +13,9 @@ import {
 } from "semantic-ui-react";
 
 class Home extends React.Component {
+  componentDidMount() {
+    document.title = "Stockeer";
+  }
   renderButtons() {
     switch (this.props.auth) {
       case null:
@@ -93,7 +96,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div style={{ height: "100%" }}>
+      <div style={{ height: "auto", minHeight: "100vh" }}>
         <Segment
           inverted
           textAlign="center"

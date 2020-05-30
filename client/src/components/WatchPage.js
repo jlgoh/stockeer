@@ -5,6 +5,10 @@ import WatchItem from "./WatchItem";
 import Loading from "./Loading";
 
 class WatchPage extends React.Component {
+  componentDidMount() {
+    document.title = "Watchlist";
+  }
+
   renderBookmarks() {
     return Object.keys(this.props.bookmarks).map((bookmark) => (
       <WatchItem
