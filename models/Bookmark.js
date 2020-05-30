@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const bookmarkSchema = new Schema({
   symbolName: String,
+  companyName: String,
   note: String,
   lastUpdated: String,
 });

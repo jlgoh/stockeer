@@ -6,7 +6,7 @@ mongoose.set("useFindAndModify", false); //deprecation issue
 module.exports = (app) => {
   //POST Bookmark
   app.post("/api/bookmarks", requireLogin, async (req, res) => {
-    const { symbolName } = req.body;
+    const { symbolName, companyName } = req.body;
 
     //If a symbol name is not provided
     if (!symbolName) return res.status(400).send("A symbol name is required");
@@ -27,6 +27,7 @@ module.exports = (app) => {
       $push: {
         bookmarks: {
           symbolName,
+          companyName,
           note: "",
           lastUpdated: new Date().toLocaleString("en-SG", {
             timeZone: "Singapore",
