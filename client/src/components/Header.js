@@ -44,7 +44,7 @@ class Header extends React.Component {
 
         <Link to="/" className="active item">
           <i className="magic icon" style={{ color: "white" }}></i>
-          Stocky
+          Stockeer
         </Link>
         <div className="inverted secondary right menu">
           {this.renderContent()}

@@ -67,7 +67,7 @@ class SidebarComponent extends React.Component {
           <Menu.Item className="item" style={{ padding: "1.5em 1.14285714em" }}>
             <Link to="/" onClick={this.toggleSideBar}>
               <h3>
-                <Icon name="magic" /> Stocky
+                <Icon name="magic" /> Stockeer
               </h3>
             </Link>
           </Menu.Item>

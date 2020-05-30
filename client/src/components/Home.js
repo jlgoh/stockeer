@@ -103,7 +103,7 @@ class Home extends React.Component {
           <Container text>
             <Header
               as="h1"
-              content="Stocky"
+              content="Stockeer"
               inverted
               style={{
                 fontSize: "4em",
