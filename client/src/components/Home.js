@@ -9,6 +9,7 @@ import {
   Button,
   Icon,
   Grid,
+  Image,
 } from "semantic-ui-react";
 
 class Home extends React.Component {
@@ -53,9 +54,46 @@ class Home extends React.Component {
     }
   }
 
+  renderPreview() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return (
+          <Segment style={{ padding: "8em 0em" }} vertical>
+            <Grid container stackable verticalAlign="middle">
+              <Grid.Row>
+                <Grid.Column width={8}>
+                  <Header as="h3" style={{ fontSize: "2em" }}>
+                    Get Accurate Real-Time Stock Quotes
+                  </Header>
+                  <p style={{ fontSize: "1.33em" }}>
+                    We provide real-time data from international stock markets
+                    including NYSE, NASDAQ, SGX and many more
+                  </p>
+                </Grid.Column>
+                <Grid.Column floated="right" width={6}>
+                  <Image bordered rounded size="huge" src="preview.svg" />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column textAlign="center">
+                  <Link to="/login">
+                    <Button size="huge">Check It Out</Button>
+                  </Link>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Segment>
+        );
+      default:
+        return;
+    }
+  }
+
   render() {
     return (
-      <div style={{ height: "100vh" }}>
+      <div style={{ height: "100%" }}>
         <Segment
           inverted
           textAlign="center"
@@ -76,7 +114,7 @@ class Home extends React.Component {
             />
             <Header
               as="h2"
-              content="Think different"
+              content="Stay up-to-date with the latest stock market trends"
               inverted
               style={{
                 fontSize: "1.5em",
@@ -87,7 +125,7 @@ class Home extends React.Component {
             {this.renderButtons()}
           </Container>
         </Segment>
-        <Segment vertical></Segment>
+        {this.renderPreview()}
       </div>
     );
   }
