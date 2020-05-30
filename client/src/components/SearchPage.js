@@ -11,6 +11,25 @@ class SearchPage extends React.Component {
     document.title = "Search";
   }
 
+  //Allow charts to rerender on Back and Forward
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.location.search !== prevProps.location.search &&
+      this.props.location.search
+    ) {
+      this.setState({
+        term: qs.parse(this.props.location.search).q.toUpperCase(),
+      });
+    }
+
+    if (
+      this.props.location.search !== prevProps.location.search &&
+      !this.props.location.search
+    ) {
+      this.setState({ term: "" });
+    }
+  }
+
   onTermSubmit = (term) => {
     this.setState({ term });
     history.push(`?q=${term}`);
