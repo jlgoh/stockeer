@@ -7,7 +7,11 @@ import Loading from "./Loading";
 class WatchPage extends React.Component {
   renderBookmarks() {
     return Object.keys(this.props.bookmarks).map((bookmark) => (
-      <WatchItem key={bookmark} term={bookmark} />
+      <WatchItem
+        key={bookmark}
+        term={bookmark}
+        name={this.props.bookmarks[bookmark].companyName}
+      />
     ));
   }
 

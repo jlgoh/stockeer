@@ -2,6 +2,8 @@ import React from "react";
 import { Search, Grid } from "semantic-ui-react";
 import { wtd, nasdaq100 } from "../api/wtd";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { storeSearchResults } from "../actions";
 
 const initialState = { term: "", isLoading: false, results: [] };
 
@@ -29,6 +31,7 @@ class SearchBar extends React.Component {
           ...nasdaqResults,
         ].slice(0, 7),
       });
+      this.props.storeSearchResults(this.state.results);
       return res;
     }, 200);
   }
@@ -84,4 +87,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default connect(null, { storeSearchResults })(SearchBar);

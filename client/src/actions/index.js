@@ -6,6 +6,18 @@ import { processData } from "../components/charts/utils";
 import validateRequests from "../utils/validateRequests";
 const keys = require("../config/keys");
 
+//Add search results to store
+export const storeSearchResults = (results) => (dispatch) => {
+  const resultsTable = _.transform(
+    results,
+    (a, b) => {
+      return (a[b.title] = b.description);
+    },
+    {}
+  );
+  dispatch({ type: "STORE_RESULTS", payload: resultsTable });
+};
+
 //Update user's bookmark (note)
 export const updateBookmark = (symbolName, bookmarkId, note) => async (
   dispatch
@@ -34,8 +46,10 @@ export const getBookmarks = () => async (dispatch) => {
 };
 
 //Add bookmark
-export const addBookmark = (symbolName) => async (dispatch) => {
-  const res = await axios.post("/api/bookmarks", { symbolName });
+export const addBookmark = (symbolName, companyName = "") => async (
+  dispatch
+) => {
+  const res = await axios.post("/api/bookmarks", { symbolName, companyName });
   dispatch({
     type: "FETCH_BOOKMARKS",
     payload: { [symbolName]: res.data },

@@ -152,7 +152,12 @@ class ChartHeader extends React.Component {
             cursor: "pointer",
           }}
           title="Add to Watchlist"
-          onClick={() => this.props.addBookmark(this.props.term)}
+          onClick={() =>
+            this.props.addBookmark(
+              this.props.term,
+              this.props.search[this.props.term]
+            )
+          }
         />{" "}
       </div>
     );
@@ -200,6 +205,7 @@ const mapStateToProps = (state) => {
   return {
     stocks: state.stocks,
     bookmarks: state.bookmarks,
+    search: state.search,
   };
 };
 

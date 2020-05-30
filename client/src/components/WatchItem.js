@@ -31,7 +31,7 @@ class WatchItem extends React.Component {
   }
 
   render() {
-    const { term, stocks } = this.props;
+    const { term, name, stocks } = this.props;
     if (!(`${term}_DAILY` in stocks)) {
       return <Loading />;
     }
@@ -44,12 +44,11 @@ class WatchItem extends React.Component {
         style={{ cursor: "pointer" }}
         onClick={() => this.setState({ expanded: !this.state.expanded })}
       >
-        <h3
-          style={{ margin: "0.6rem 1em 0 0" }}
-          className="left floated content"
-        >
-          {term}
-        </h3>
+        <div style={{ maxWidth: "30%" }} className="left floated content">
+          <h3 style={{ display: "inline" }}>{term}</h3>
+          <div>{name}</div>
+        </div>
+
         <div className="right floated content">
           <div
             className="left floated content"
