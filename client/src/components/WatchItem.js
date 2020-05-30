@@ -58,7 +58,7 @@ class WatchItem extends React.Component {
             <h4>{recentStocks[1].toFixed(2)}</h4>
           </div>
           <div
-            style={{ cursor: "default", maxWidth: "85px" }}
+            style={{ maxWidth: "85px" }}
             className={`${percentageChange >= 0 ? "green" : "red"} ui button`}
           >
             {percentageChange >= 0 ? "+" : ""}
