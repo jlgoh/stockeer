@@ -22,6 +22,20 @@ Stockeer provides user-friendly features like Google OAuth Sign-In and search su
 
 In the project directory, you can run:
 
+### `cd client`
+### `npm install`
+
+Installs client-side dependencies.
+
+### `cd ..`
+### `npm install`
+
+Installs server-side dependencies
+
+## Running in development mode
+
+In the project directory, you can run:
+
 ### `npm run dev`
 
 Runs the client and server application in development mode.
