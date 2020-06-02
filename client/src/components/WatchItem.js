@@ -54,7 +54,11 @@ class WatchItem extends React.Component {
             className="left floated content"
             style={{ display: "inline", marginTop: "10px" }}
           >
-            <h4>{recentStocks[1].toFixed(2)}</h4>
+            <h4>
+              {recentStocks[1] < 10
+                ? recentStocks[1].toFixed(4)
+                : recentStocks[1].toFixed(2)}
+            </h4>
           </div>
           <div
             style={{ maxWidth: "85px" }}

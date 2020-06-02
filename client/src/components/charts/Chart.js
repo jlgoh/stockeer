@@ -21,7 +21,7 @@ import { last } from "react-stockcharts/lib/utils";
 import { removeOptionType } from "./utils";
 
 const dateFormat = timeFormat("%Y-%m-%d");
-const numberFormat = format(".2f");
+const numberFormat = format(".4f");
 
 function tooltipContent(ys) {
   return ({ currentItem, xAccessor }) => {
@@ -117,7 +117,7 @@ class CandleStickChartWithHoverTooltip extends React.Component {
           <MouseCoordinateY
             at="left"
             orient="left"
-            displayFormat={format(".2f")}
+            displayFormat={format(".4f")}
           />
 
           <CandlestickSeries />

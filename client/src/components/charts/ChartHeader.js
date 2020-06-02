@@ -20,7 +20,8 @@ class ChartHeader extends React.Component {
   }
 
   getChange(recentStocks) {
-    return (recentStocks[1] - recentStocks[0]).toFixed(2);
+    const change = recentStocks[1] - recentStocks[0];
+    return recentStocks[1] < 10 ? change.toFixed(4) : change.toFixed(2);
   }
 
   getPercentageChange(recentStocks) {
@@ -173,7 +174,9 @@ class ChartHeader extends React.Component {
         <div className="sub header">
           {this.props.term}
           <h2 className="ui huge header" style={{ marginBottom: 0 }}>
-            {recentStocks[1].toFixed(2)}
+            {recentStocks[1] < 10
+              ? recentStocks[1].toFixed(4)
+              : recentStocks[1].toFixed(2)}
           </h2>
           <div>
             <h3
