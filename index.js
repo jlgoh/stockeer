@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
+const sslRedirect = require("heroku-ssl-redirect");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const request = require("request");
@@ -30,6 +31,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(sslRedirect()); //Force redirect to HTTPS
 
 //Load routes
 require("./routes/authRoutes")(app);
