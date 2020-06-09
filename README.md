@@ -7,7 +7,8 @@ Stockeer is a progressive web application built to provide accurate real-time st
 ## Features
 
 Stockeer is a minimalistic application that allows users to search for stock market data, view these data in easy-to-understand Candlestick charts and create a watchlist for stocks to monitor.<br/>
-Stockeer provides user-friendly features like Google OAuth Sign-In and search suggestions.
+Stockeer provides user-friendly features like Google OAuth Sign-In and search suggestions.<br/>
+<sub><sup>Due to API limitations, NASDAQ securites are updated every 24 hours, at stock market closing time.</sup></sub>
 
 ## Tech Stack Used
 
@@ -23,11 +24,13 @@ Stockeer provides user-friendly features like Google OAuth Sign-In and search su
 In the project directory, you can run:
 
 ### `cd client`
+
 ### `npm install`
 
 Installs client-side dependencies.
 
 ### `cd ..`
+
 ### `npm install`
 
 Installs server-side dependencies.
