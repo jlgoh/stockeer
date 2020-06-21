@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import requireStocksData from "./requireStocksData";
 import ChartWrapper from "./charts/ChartWrapper";
 import Loading from "./Loading";
 import { fetchStock } from "../actions";
@@ -12,20 +13,6 @@ class WatchItem extends React.Component {
       this.props.fetchStock("DAILY", this.props.term);
   }
 
-  getRecentStocks() {
-    //Array containing closing prices for last 2 days
-    const { stocks, term } = this.props;
-    return stocks[`${term}_DAILY`].slice(-2).map((stock) => stock.close);
-  }
-
-  getChange(recentStocks) {
-    return (recentStocks[1] - recentStocks[0]).toFixed(2);
-  }
-
-  getPercentageChange(recentStocks) {
-    return ((this.getChange(recentStocks) / recentStocks[0]) * 100).toFixed(2);
-  }
-
   renderChart() {
     if (this.state.expanded) return <ChartWrapper term={this.props.term} />;
   }
@@ -36,8 +23,8 @@ class WatchItem extends React.Component {
       return <Loading />;
     }
 
-    const recentStocks = this.getRecentStocks();
-    const percentageChange = this.getPercentageChange(recentStocks);
+    const recentStocks = this.props.getRecentStocks();
+    const percentageChange = this.props.getPercentageChange(recentStocks);
     return (
       <div
         className="item"
@@ -87,4 +74,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchStock })(WatchItem);
+export default connect(mapStateToProps, { fetchStock })(
+  requireStocksData(WatchItem)
+);

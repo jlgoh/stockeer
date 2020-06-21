@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addBookmark, deleteBookmark, updateBookmark } from "../../actions";
+import requrieStocksData from "../requireStocksData";
 import { Form, TextArea, Confirm } from "semantic-ui-react";
 
 class ChartHeader extends React.Component {
@@ -12,21 +13,6 @@ class ChartHeader extends React.Component {
     updateConfirm: false,
     removeWarning: false,
   };
-
-  getRecentStocks() {
-    //Array containing closing prices for last 2 days
-    const { stocks, term } = this.props;
-    return stocks[`${term}_DAILY`].slice(-2).map((stock) => stock.close);
-  }
-
-  getChange(recentStocks) {
-    const change = recentStocks[1] - recentStocks[0];
-    return recentStocks[1] < 10 ? change.toFixed(4) : change.toFixed(2);
-  }
-
-  getPercentageChange(recentStocks) {
-    return ((this.getChange(recentStocks) / recentStocks[0]) * 100).toFixed(2);
-  }
 
   renderWarning = () => this.setState({ removeWarning: true });
   handleConfirm = () => {
@@ -165,7 +151,7 @@ class ChartHeader extends React.Component {
   }
 
   render() {
-    const recentStocks = this.getRecentStocks();
+    const recentStocks = this.props.getRecentStocks();
     return (
       <div
         className="ui center aligned dividing icon header"
@@ -183,15 +169,19 @@ class ChartHeader extends React.Component {
               style={{
                 marginTop: 0,
                 color: `${
-                  this.getChange(recentStocks) >= 0 ? "#26D500" : "#E10000"
+                  this.props.getChange(recentStocks) >= 0
+                    ? "#26D500"
+                    : "#E10000"
                 }`,
               }}
             >
-              {this.getChange(recentStocks)} (
-              {this.getPercentageChange(recentStocks)}%){" "}
+              {this.props.getChange(recentStocks)} (
+              {this.props.getPercentageChange(recentStocks)}%){" "}
               <i
                 className={`${
-                  this.getChange(recentStocks) >= 0 ? "green up" : "red down"
+                  this.props.getChange(recentStocks) >= 0
+                    ? "green up"
+                    : "red down"
                 } arrow alternate circle icon`}
                 style={{ display: "inline-block", fontSize: "1em" }}
               ></i>
@@ -216,4 +206,4 @@ export default connect(mapStateToProps, {
   addBookmark,
   deleteBookmark,
   updateBookmark,
-})(ChartHeader);
+})(requrieStocksData(ChartHeader));
