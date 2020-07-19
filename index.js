@@ -37,15 +37,16 @@ app.use(sslRedirect()); //Force redirect to HTTPS
 require("./routes/authRoutes")(app);
 require("./routes/bookmarkRoutes")(app);
 
-//Proxy route for WTD API to prevent CORS issue using server-to-sever commmunication
-app.get("/api/proxy/wtd", (req, res, next) => {
+//Proxy route for marketstack API to prevent CORS issue using server-to-sever commmunication
+app.get("/api/proxy/marketstack", (req, res, next) => {
   request(
     {
-      url: `https://api.worldtradingdata.com/api/v1/stock_search?search_term=${req.query.term}&api_token=${keys.wtdKey}&sort_by=market_cap&sort_order=desc`,
+      url: `https://api.marketstack.com/v1/tickers?search=${req.query.term}&access_key=${keys.marketstackKey}&limit=7`,
     },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
-        return res.status(500).json({ type: "error", message: err.message });
+        console.log(error);
+        return res.status(500).json({ type: "error", message: "error" });
       }
       res.send(body);
     }

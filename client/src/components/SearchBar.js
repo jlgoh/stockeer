@@ -1,6 +1,6 @@
 import React from "react";
 import { Search, Grid } from "semantic-ui-react";
-import { wtd, nasdaq100 } from "../api/wtd";
+import { marketstack } from "../api/marketstack";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { storeSearchResults } from "../actions";
@@ -13,23 +13,17 @@ class SearchBar extends React.Component {
     this.state = initialState;
 
     this.handleInputChange = _.debounce(async (value) => {
-      const res = await wtd.get(`/wtd?term=${value}`);
-      const nasdaqResults = nasdaq100.filter(
-        ({ title, description }) =>
-          title.includes(this.state.term.toUpperCase()) ||
-          description.toUpperCase().includes(this.state.term.toUpperCase())
-      );
+      const res = await marketstack.get(`/marketstack?term=${value}`);
+      console.log(res);
+
       this.setState({
         isLoading: false,
-        results: [
-          ...res.data.data.map((stock) => {
-            return {
-              title: stock.symbol,
-              description: stock.name,
-            };
-          }),
-          ...nasdaqResults,
-        ].slice(0, 7),
+        results: res.data.data.map((stock) => {
+          return {
+            title: stock.symbol,
+            description: stock.name,
+          };
+        }),
       });
       this.props.storeSearchResults(this.state.results);
       return res;
