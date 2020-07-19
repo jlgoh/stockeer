@@ -56,7 +56,7 @@ app.get("/api/proxy/marketstack", (req, res, next) => {
 app.get("/api/proxy/marketstack/daily", (req, res, next) => {
   request(
     {
-      url: `https://api.marketstack.com/v1/eod?symbols=${req.query.term}&access_key=${keys.marketstackKey}&limit=120`,
+      url: `https://api.marketstack.com/v1/eod?symbols=${req.query.term}&access_key=${keys.marketstackKey}&limit=250`,
     },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {

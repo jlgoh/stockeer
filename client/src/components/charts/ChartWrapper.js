@@ -9,16 +9,16 @@ import _ from "lodash";
 import { TypeChooser } from "react-stockcharts/lib/helper";
 
 const TABS = {
-  "1D": false,
   "5D": false,
   "1M": false,
   "3M": false,
   "6M": false,
+  "1Y": false,
 };
 
 class ChartWrapper extends React.Component {
   //Show 5 Months Tab by default
-  state = { ...TABS, "6M": true };
+  state = { ...TABS, "1Y": true };
 
   componentDidMount() {
     if (!(`${this.props.term}_DAILY` in this.props.stocks))
@@ -81,6 +81,8 @@ class ChartWrapper extends React.Component {
       case "3M":
         return _.takeRight(fullData, 60);
       case "6M":
+        return _.takeRight(fullData, 120);
+      case "1Y":
         return fullData;
       default:
         return fullData;
