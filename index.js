@@ -53,6 +53,36 @@ app.get("/api/proxy/marketstack", (req, res, next) => {
   );
 });
 
+app.get("/api/proxy/marketstack/daily", (req, res, next) => {
+  request(
+    {
+      url: `https://api.marketstack.com/v1/eod?symbols=${req.query.term}&access_key=${keys.marketstackKey}&limit=120`,
+    },
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        console.log(error);
+        return res.status(500).json({ type: "error", message: "error" });
+      }
+      res.send(body);
+    }
+  );
+});
+
+app.get("/api/proxy/marketstack/intraday", (req, res, next) => {
+  request(
+    {
+      url: `https://api.marketstack.com/v1/intraday?symbols=${req.query.term}&access_key=${keys.marketstackKey}&interval=15min`,
+    },
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        console.log(error);
+        return res.status(500).json({ type: "error", message: "error" });
+      }
+      res.send(body);
+    }
+  );
+});
+
 //Routing for deployment
 if (process.env.NODE_ENV === "production") {
   //Express will serve up production assets like our main.js or css file

@@ -1,6 +1,6 @@
 import React from "react";
 import { Search, Grid } from "semantic-ui-react";
-import { marketstack } from "../api/marketstack";
+import marketstack from "../api/marketstack";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { storeSearchResults } from "../actions";
@@ -14,16 +14,20 @@ class SearchBar extends React.Component {
 
     this.handleInputChange = _.debounce(async (value) => {
       const res = await marketstack.get(`/marketstack?term=${value}`);
-      console.log(res);
-
+      const duplicateCheck = {};
       this.setState({
         isLoading: false,
-        results: res.data.data.map((stock) => {
-          return {
-            title: stock.symbol,
-            description: stock.name,
-          };
-        }),
+        results: res.data.data
+          .map((stock) => {
+            if (duplicateCheck[stock.symbol]) return null; // Do not add duplicate symbols to the search suggestions.
+
+            duplicateCheck[stock.symbol] = stock.name;
+            return {
+              title: stock.symbol,
+              description: stock.name,
+            };
+          })
+          .filter((obj) => obj !== null),
       });
       this.props.storeSearchResults(this.state.results);
       return res;

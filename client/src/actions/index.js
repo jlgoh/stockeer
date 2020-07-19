@@ -1,10 +1,9 @@
 import axios from "axios";
 import history from "../history";
 import _ from "lodash";
-import alphavantage from "../api/alphavantage";
+import marketstack from "../api/marketstack";
 import { processData } from "../components/charts/utils";
 import validateRequests from "../utils/validateRequests";
-const keys = require("../config/keys");
 
 //Add search results to store
 export const storeSearchResults = (results) => (dispatch) => {
@@ -75,10 +74,8 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
 
   //Fetch daily stock data of a company
   if (param === "TIME_SERIES_DAILY") {
-    const res = await alphavantage.get(
-      `/query?outputsize=compact&apikey=${
-        keys.alphaVantageKey
-      }&symbol=${symbol.toUpperCase()}&function=${param}`
+    const res = await marketstack.get(
+      `/marketstack/daily?term=${symbol.toUpperCase()}`
     );
 
     if (!validateRequests(res, dispatch)) return;
@@ -91,10 +88,8 @@ export const fetchStock = (queryType, symbol) => async (dispatch) => {
 
   //Fetch intraday stock data of a company
   else {
-    const res = await alphavantage.get(
-      `/query?interval=5min&apikey=${
-        keys.alphaVantageKey
-      }&symbol=${symbol.toUpperCase()}&function=${param}`
+    const res = await marketstack.get(
+      `/marketstack/intraday?term=${symbol.toUpperCase()}`
     );
 
     if (!validateRequests(res, dispatch)) return;

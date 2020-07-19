@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const marketstack = axios.create({
+export default axios.create({
   baseURL: "/api/proxy",
 });

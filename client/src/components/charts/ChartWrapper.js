@@ -13,12 +13,12 @@ const TABS = {
   "5D": false,
   "1M": false,
   "3M": false,
-  "5M": false,
+  "6M": false,
 };
 
 class ChartWrapper extends React.Component {
   //Show 5 Months Tab by default
-  state = { ...TABS, "5M": true };
+  state = { ...TABS, "6M": true };
 
   componentDidMount() {
     if (!(`${this.props.term}_DAILY` in this.props.stocks))
@@ -47,7 +47,8 @@ class ChartWrapper extends React.Component {
     //AND that new search term is in already store to update ERROR to false
     if (
       `${this.props.term}_DAILY` in this.props.stocks &&
-      this.props.stocks["ERROR"]
+      this.props.stocks["ERROR"] &&
+      prevProps.stocks["ERROR"]
     ) {
       this.props.fetchStock("DAILY", this.props.term);
     }
@@ -79,7 +80,7 @@ class ChartWrapper extends React.Component {
         return _.takeRight(fullData, 20);
       case "3M":
         return _.takeRight(fullData, 60);
-      case "5M":
+      case "6M":
         return fullData;
       default:
         return fullData;
